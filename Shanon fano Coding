@@ -1,0 +1,79 @@
+function code = findBreakingIndex(p,code, startIndex, endIndex)
+    if (endIndex - startIndex == 0)
+        return
+    end
+    
+    originalStartIndex = startIndex;
+    originalEndIndex = endIndex;
+    sum1 = p(startIndex);
+    sum2 = p(endIndex);
+    while(startIndex ~= endIndex - 1)
+        if(sum1 > sum2)
+            code(endIndex) = strcat(code(endIndex), '1');
+            endIndex = endIndex - 1;
+            sum2 = sum2 + p(endIndex);
+        else
+            code(startIndex) = strcat(code(startIndex), '0');
+            startIndex = startIndex + 1;
+            sum1 = sum1 + p(startIndex);
+        end
+    end
+ 
+    code(endIndex) = strcat(code(endIndex), '1');
+    code(startIndex) = strcat(code(startIndex), '0');
+    
+    index = startIndex;
+    code3 = findBreakingIndex(p, code, originalStartIndex, index);
+    i = originalStartIndex;
+    while(i <= index)
+        code(i) = code3(i);
+        i = i + 1;
+    end
+    code4 = findBreakingIndex(p, code, index + 1, originalEndIndex);
+    i = index + 1;
+    while(i <= originalEndIndex)
+        code(i) = code4(i);
+        i = i + 1;
+    end
+end
+
+function code2 = findCodes(p)
+    startIndex = 1;
+    endIndex = length(p);
+    len = length(p);
+    code = {};
+    i = 1;
+    while(i<=len) 
+        code = horzcat(code, {''});
+        i = i + 1;
+    end
+    code2 = findBreakingIndex(p, code, startIndex, endIndex);
+end
+     
+function n = findEfficiency(code, p)
+    avgLength = findAvgLength(code, p);
+    h = findEntropy(p);
+    n = h / avgLength;
+end
+
+function h = findEntropy(p)
+    i = 1;
+    len = length(p);
+    sum = 0;
+    while(i<=len)
+        sum = sum + p(i)*log2(p(i));
+        i = i + 1;
+    end
+    h = -sum;
+end
+
+function avgLength = findAvgLength(code, p)
+    i = 1;
+    len = length(code);
+    sum = 0;
+    while(i<=len)
+        sum = sum + length(char(code(i)))*p(i);
+        i = i + 1;
+    end
+    avgLength = sum;
+end
