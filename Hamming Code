@@ -1,0 +1,49 @@
+clc
+m=input('Enter the message bits:')
+p=input('Enter the no. of parity bits:')
+ 
+mn=length(m)
+n= ((2^p)-1)
+y=zeros(1,n);
+for i=1:p
+ y(2^(i-1))=NaN;
+end
+a=1;
+for j=1:(mn+p)
+   if(isnan(y(j)))
+    continue;
+   else 
+    y(j)=m(a);
+    a=a+1;
+  end
+end
+y
+i=1;
+pc=zeros(1,p)
+for k=1:n
+ if(y(k)==1)
+   pc(i)=k;
+   i=i+1;
+end
+end
+pc1=length(pc);
+sf=dec2bin(pc,p);
+sf';
+k=sum(sf)
+ 
+h=zeros(1,p);
+for i=1:p
+ if(rem(k(i),2)==0)
+h(i)=0;
+else h(i)=1;
+end
+end
+h
+a=1;
+for j=1:(mn+p)
+if(isnan(y(j)))
+y(j)=h(a);
+a=a+1;
+end
+end
+y
