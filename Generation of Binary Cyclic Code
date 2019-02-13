@@ -1,0 +1,10 @@
+clc;
+n=input('Enter the codeword length:');
+k = input('Enter the no of message bits:');
+pol = cyclpoly(n,k);
+ 
+disp('--systematic binary cyclic code.')
+[parmat,genmat,k] = cyclgen(n,pol)
+ 
+disp('--Nonsystematic binary cyclic code.')
+[parmatnonsys,genmatnonsys,k] = cyclgen(7,pol,'nonsys')
