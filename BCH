@@ -1,0 +1,7 @@
+clc;
+x=input('enter the sequence: ');
+g=gf(x);
+n= input('enter the no. of bits:');
+k=4;
+code=bchenc(g,n,k)
+msg=bchdec(code,n,k)
