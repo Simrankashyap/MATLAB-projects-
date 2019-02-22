@@ -1,3 +1,4 @@
+Binary Cyclic Code 
 clc;
 n=input('Enter the codeword length:');
 k = input('Enter the no of message bits:');
