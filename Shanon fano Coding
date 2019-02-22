@@ -1,3 +1,4 @@
+Shanon Fanon Encoding Algorithm 
 function code = findBreakingIndex(p,code, startIndex, endIndex)
     if (endIndex - startIndex == 0)
         return
